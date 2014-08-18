@@ -4,9 +4,7 @@ classdef scale_x_discrete < scale
     %   descriptions can include multiple lines of text if needed.
     %
     % SYNTAX:
-    %   myObject = scale_x_discrete( requiredProp )
-    %   myObject = scale_x_discrete( requiredProp, 'optionalInput1', 'optionalInputValue' )
-    %   myObject = scale_x_discrete( requiredInput, 'optionalInput2', 50 )
+    %   myObject = scale_x_discrete( 'breaks', [10, 20, 30], 'labels', {'a', 'b', 'c'})
     %
     % Description:
     %   myObject = scale_x_discrete( requiredProp ) further description about the use
