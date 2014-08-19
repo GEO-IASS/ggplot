@@ -1,0 +1,80 @@
+function [ colors_out, the_colors, range_type ] = assign_colors( data, color_col, varargin )
+%ASSIGN_COLORS - One line description of what the function or script performs (H1 line)
+%   ASSIGN_COLORS has a second line of description that can go on to additional
+%   lines if needed, for a more detailed description
+%
+% SYNTAX:
+%   [ output1 ] = assign_colors( data )
+%   assign_colors( data, 'optionalInput1', 'optionalInputValue' )
+%   assign_colors( data, 'optionalInput2', 50 )
+%
+% Description:
+%   [ output_args ] = assign_colors( data ) further description about 
+%        the use of the function can be added here.
+%
+% INPUTS:
+%   data - Description
+%   optionalInput1 - Description
+%   optionalInput2 - Description   
+%
+% OUTPUTS:
+%   output1 - Description
+%
+% EXAMPLES:
+%   Line 1 of multi-line use case goes here
+%   Line 2...
+%
+% M-FILES required: none
+%
+% MAT-FILES required: none
+%
+% SEE ALSO: OTHER_FUNCTION1, OTHER_FUNCTION2
+% 
+% Author:       nick roth
+% email:        nick.roth@nou-systems.com
+% Matlab ver.:  8.3.0.532 (R2014a)
+% Date:         19-Aug-2014
+% Update:
+    
+    %% Input Parsing
+    % Setup input parsing
+    p = inputParser;
+    p.FunctionName = 'assign_colors';
+    p.addRequired('data');
+    p.addRequired('color_col');
+    p.parse(data, color_col, varargin{:});
+
+    % Assign function variables
+    data = p.Results.data;
+    color_col = p.Results.color_col;
+
+    %% Primary function logic begins here 
+    import utils.*
+    N = length(data{:, color_col});
+    
+    if is_categorical(data{:, color_col})
+        cats = categories(data{:, color_col});
+        
+        % max from linspecer for pretty colors
+        % TODO: expand to have more discrete colors
+        the_colors = linspecer(12); 
+        colors_index = ones(N, 1);
+        
+
+        range_type = 'discrete';
+    else
+        col_data = data{:, color_col};
+        cats = unique(col_data);
+        colors_out = linspecer(length(cats),'sequential');
+        
+        range_type = 'continuous';
+    end
+            for i = 1:length(cats)
+            color_idx = mod(i, 12);
+            rows = data{:, color_col} == cats(i);
+            if ~isempty(rows)
+                colors_index(rows) = color_idx;
+            end
+        end
+    
+end
