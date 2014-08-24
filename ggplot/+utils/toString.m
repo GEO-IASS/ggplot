@@ -27,9 +27,11 @@ function [ str_items ] = toString( items, varargin )
 
 if isnumeric(items)
     items = num2str(items);
-    str_items = cellstr(items);
+    str_items = strtrim(cellstr(items));
 elseif iscategorical(items)
     str_items = categories(items);
 end
-      
+
+% Make sure we don't have spaces
+str_items = strrep(str_items, ' ', '_');
 end
