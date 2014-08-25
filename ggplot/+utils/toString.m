@@ -33,5 +33,5 @@ elseif iscategorical(items)
 end
 
 % Make sure we don't have spaces
-str_items = strrep(str_items, ' ', '_');
+% str_items = strrep(str_items, ' ', '_');
 end
